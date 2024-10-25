@@ -1,18 +1,4 @@
-operator = input("""
-                enter operator from this list:
-                    - "+" for addition
-                    - "-" for subtraction
-                    - "*" for multiplication
-                    - "/" for division (remember to not add 0 or negative numbers as the second number)
-                    - "%" for modulus (remember that input will be converted to a whole number)
-                    - ">" for greater than comparison
-                    - ">=" for greater than or equal to comparison
-                    - "<" for less than comparison
-                    - "<=" for less than or equal to comparison
-                """)
 
-num1 = float(input("enter first number "))
-num2 = float(input("enter second number "))
 
 def calculator(num1, num2, operator):
     """
@@ -48,7 +34,24 @@ def calculator(num1, num2, operator):
     - If division by zero is attempted, the function prints an error message and does not return a result.
     - If an invalid operator is provided, the function prints an error message and does not return a result.
     """
-    result = "null"
+    
+
+    # Function implementation here ...
+    #operator = input("""
+    #            enter operator from this list:
+    #                - "+" for addition
+    #                - "-" for subtraction
+    #                - "*" for multiplication
+    #                - "/" for division (remember to not add 0 or negative numbers as the second number)
+    #                - "%" for modulus (remember that input will be converted to a whole number)
+    #                - ">" for greater than comparison
+    #                - ">=" for greater than or equal to comparison
+    #                - "<" for less than comparison
+    #                - "<=" for less than or equal to comparison
+    #            """)
+    #
+    #num1 = float(input("enter first number "))
+    #num2 = float(input("enter second number "))    #code for input if neccesary will add
 
     if operator == "+":
         result = num1 + num2
@@ -99,13 +102,13 @@ def calculator(num1, num2, operator):
             result = False
             
         print("the result is ",result)
-    # Function implementation here ...
     else:
         print("Invalid operator.")
 
+
     return result
 
-calculator(num1, num2, operator)
+calculator(121, 9, "+")
 
 ## Run the example
 # calculator(4, 5, "*")  # Output: The result is: 20
