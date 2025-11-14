@@ -1,0 +1,408 @@
+def are_anagrams(word1, word2):
+    word1 = word1.lower()
+    word2 = word2.lower()
+
+    length1 = 0
+    length2 = 0
+    for i in word1:
+        length1 = length1 + 1
+    for i in word2:
+        length2 = length2 + 1
+
+    count = 0
+    if length1 == length2:
+        for i in word1:
+            for j in word2:
+                if i == j:
+                    count = count + 1
+    else: 
+        return False
+      
+    if count == length1: # i don't think an identical word is an anagram, if it is then this should be
+        return True      # if count => length1 however i left it as ==
+    else:
+        return False
+
+
+def password_strength(password):
+    length = 0
+    specialCharacters = ["@", "$", "£"]
+    specialCheck = False
+    upperCheck = False
+
+    for i in password:
+        length = length + 1
+        for j in specialCharacters:
+            if specialCheck == False:
+                if i == j:
+                    specialCheck = True
+        if i.isupper() == True:
+            upperCheck = True
+
+    if length < 6 or specialCheck == False or upperCheck == False:
+        return "Weak"
+    elif length <= 10 and specialCheck == True and upperCheck == True:
+        return "Medium"
+    else:
+        return "Strong"
+
+
+def sort_list(theList):
+    sortedCheck = 0
+    sorted = False
+    
+    length = 0
+    for i in theList:
+        length = length + 1
+
+    while sorted == False:
+        for i in range(length):
+            if theList[i-1] > theList[i]:
+                theList.append(theList[i-1])
+                theList.pop(i-1)
+            else:
+                sortedCheck = sortedCheck + 1
+        if sortedCheck > length+1: # I did length+1 here because i noticed that if i just did length it stopped short one of sorting it
+            sorted = True
+            return theList
+
+
+def calculate_average(list):
+    total = 0
+    count = 0
+
+    for i in list:
+        count = count + 1
+        total = total + i
+
+    average = total / count
+    return average
+
+
+def winning_numbers(winning_list, guessed_list):
+    total = 0
+
+    if guessed_list[0] == winning_list[0]: # these sections check each element of the guessed list to each element of the winning list, and adds points to a total accordingly
+        total = total + 1
+    elif guessed_list[0] == winning_list[1]:
+        total = total + 1
+    elif guessed_list[0] == winning_list[2]:
+        total = total + 1
+
+    if guessed_list[1] == winning_list[0]:
+        total = total + 1
+    elif guessed_list[1] == winning_list[1]:
+        total = total + 1
+    elif guessed_list[1] == winning_list[2]:
+        total = total + 1
+
+    if guessed_list[2] == winning_list[0]:
+        total = total + 1
+    elif guessed_list[2] == winning_list[1]:
+        total = total + 1
+    elif guessed_list[2] == winning_list[2]:
+        total = total + 1
+
+    if total == 0: # uses the total to assign the correct result to the prize variable, then returns the prize variable
+        prize = "No"
+    if total == 1:
+        prize = "Third"
+    if total == 2:
+        prize = "Second"
+    if total == 3:
+        prize = "First"
+    
+    return prize
+
+
+def calculate_weekly_pay(hours):
+    pay = 0
+
+    if hours > 0:
+        if hours <= 35:
+            pay = hours * 12
+        elif hours > 35:
+            pay = 35 * 12
+            overtime = hours - 35
+            pay = pay + (overtime * 18)
+        
+        return pay
+    
+    else:
+        print("input must be positive")
+
+
+def calculator(num1, num2, operator):
+    if operator == "+":
+        result = num1 + num2
+        print(f"the result is: {result}")
+    elif operator == "-":
+        result = num1 - num2
+        print(f"the result is: {result}")
+    elif operator == "*":
+        result = num1 * num2
+        print(f"the result is: {result}")
+    elif operator == "/":
+        if num2 > 0:
+            result = num1 / num2
+            print(f"the result is: {result}")
+        else:
+            print("second number cannot be negative or 0") # dividing by zero would cause an error, check happens before calculation is done to avoid this
+            result = None
+    elif operator == "%":
+        if num2 > 0:
+            result = int(num1) % int(num2)
+            print(f"the result is: {result}")
+        else:
+            print("second number cannot be negative or 0")
+            result = None # had to set a value to result, as i put put return result at the end of the function, and returning a nonexistent variable would return an error
+    elif operator == ">":
+        if num1 > num2 == True:
+            result = True
+        else:
+            result = False
+        print(f"the result is: {result}")
+    elif operator == "<":
+        if num1 < num2 == True:
+            result = True
+        else:
+            result = False
+        print(f"the result is: {result}")
+    elif operator == ">=":
+        if num1 >= num2 == True:
+            result = True
+        else:
+            result = False
+        print(f"the result is: {result}")
+    elif operator == "<=":
+        if num1 <= num2 == True:
+            result = True
+        else:
+            result = False
+        print(f"the result is: {result}")
+    else:
+        print("invalid operator")
+        result = None
+
+    return result
+
+
+def cipher_text(cipherText, key):
+    decryptedText = ""
+    tempChar = ""
+    
+    for i in cipherText:
+        tempChar = ord(i) - key
+        tempChar = tempChar % 256
+        decryptedText = decryptedText + chr(tempChar)
+
+    return decryptedText
+
+
+def closest_pair_under_budget(prices, budget):
+    budget_dict = {}
+    sort = []
+
+    for i in range(len(prices)):
+        for j in range (len(prices)):
+            if prices[i] != prices [j]:
+                comparitor = (prices[i][1] + prices[j][1]) 
+                if comparitor <= budget: 
+                    budget_dict[(prices[i][0], prices[j][0])] = comparitor # create dict of all combinations of the item things, using only values that are less than oq eqaual to budget
+
+    for i in budget_dict.values():
+        sort.append(i)
+
+
+    sorted = False
+    sortedCheck = 0 
+    while sorted == False:
+        for i in range(len(sort)):
+            if sort[i-1] > sort[i]:
+                sort.append(sort[i-1])
+                sort.pop(i-1)
+            else:
+                sortedCheck = sortedCheck + 1 # sort list algorithm from a prior task
+        if sortedCheck > len(sort)+1:
+            sorted = True
+            print(sort)
+
+
+    for i in budget_dict.items(): # iterates through dict to find the first instance of the highest price on sorted list
+        if i[1] == sort[-1]:
+            return i[:1] 
+            break
+
+
+def count_vowels(word):
+    word = word.lower()
+    vowelList = ["a", "e", "i", "o", "u"]
+    numVowels = 0
+
+    length = 0
+    for i in word:
+        length = length + 1
+    
+    for i in vowelList:
+        for j in range(length):
+            if word[j] == i:
+                numVowels = numVowels + 1
+            
+    return numVowels
+
+
+def is_palindrome(text):
+    text = text.upper()
+
+    reverse = text[::-1]
+    print(reverse)
+
+    if text == reverse:
+        return True
+    else:
+        return False
+
+
+def is_prime(num):
+    if num != 1:
+        for i in range(2,num):
+            if num % i == 0:
+                return False
+                break
+        return True   
+    else:
+        return False 
+
+
+def letter_grade(dataInput):
+    creditTotal = 0
+    total = 0
+    average = 0 
+    grade = 0
+
+    for i in dataInput:
+        total = total + (i["score"] * i["credits"])
+        creditTotal = creditTotal + i["credits"]
+
+    average = total / creditTotal    
+    
+    if average < 50:
+        grade = "F"
+    elif average <= 60:
+        grade = "D"
+    elif average <= 70:
+        grade = "C"
+    elif average <= 90:
+        grade = "B"
+    else:
+        grade = "A"
+
+    return average, grade
+
+
+def longest_repetition(text):
+    count = 0
+    longest = ("", 0)
+    text = text + " " # this had to be added to account for the longest repetition being at the end
+
+    for i in range(len(text)-1):
+        if text[i] == text[i+1]:
+            count = count + 1
+        else:
+            count = count + 1
+            if count > longest[1]:
+                longest = (text[i], count)
+            count = 0
+    return longest 
+
+
+def max_of_three(num1, num2, num3):
+    maximum = None
+
+    if num1 > num2:
+        if num1 > num3:
+            maximum = num1
+    elif num2 > num3:
+        maximum = num2
+    else:
+        maximum = num3 # can just use else here without any comparison because it is already established at this point that it must be greater than num1 and 2 if this is executed
+
+    return maximum
+
+
+def maximum_gap(list1, list2):
+    diff1 = max(list1) - min(list2)
+    diff2 = max(list2) - min(list1)
+
+    if diff1 > diff2:
+        return diff1
+    else:
+        return diff2
+
+
+def my_split(my_str, sep):
+    temp_str = ""
+    split_strs = []
+
+    for i in my_str:
+        temp_str = temp_str + i
+        if i == sep:
+            split_strs.append(temp_str[:-1])
+            temp_str = ""
+    split_strs.append(temp_str)
+
+    return split_strs
+
+
+def net_annual_income(gross_salary):
+    taxable_income = gross_salary - 12570
+    basic_total = 50270 - 12571
+    higher_total = 125140 - 50271
+    
+    if gross_salary <= 50270:
+        tax = taxable_income * 0.2
+        final_income = gross_salary - tax
+
+    if 50270 < gross_salary <= 125140:
+        taxable_income = taxable_income - basic_total
+        tax = taxable_income * 0.4
+        final_income = gross_salary - tax - (basic_total * 0.2)
+    
+    if gross_salary > 125140:
+        taxable_income = taxable_income - 125140
+        tax = taxable_income * 0.45
+        final_income = gross_salary - tax - (basic_total * 0.2) - (higher_total * 0.4)
+
+
+    return str(final_income)[:len(str(gross_salary))+3]
+
+
+def sum_of_digits(num):
+    total = 0
+    num = str(num)
+
+    for i in num:
+        i = int(i)
+        total = total + i
+
+    return total
+
+
+def sum_of_evens(min, max):
+    total = 0
+    if min > 0:
+        if max > 0:        
+            for i in range(min, (max+1)):
+                if i % 2 == 0:
+                    total = total + i
+        else:
+            print("input must be positive")
+            
+    else:
+        print("input must be positive")
+   
+    return total
+
+
+
+
